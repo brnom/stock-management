@@ -34,8 +34,8 @@ class MqttClient(object):
     self._mqtt_client.on_message = self.mqtt_on_message
     self._mqtt_client.on_connect = self.mqtt_on_connect
 
-  def publish(self, topic, payload):
-    """Publishes a message to a victim"""
+  def publish(self, topic: str, payload: dict):
+    """Publishes a message to a target"""
 
     encoded_payload = utils.encode(payload)
     self._mqtt_client.publish(topic=topic, payload=encoded_payload)
@@ -89,7 +89,7 @@ class MqttClient(object):
 
 
   def check_for_timeout(self):
-    """Checks if we should stop the loop based on `self.listen_timeout`"""
+    """Checks if we should stop the loop based on `self.timeout`"""
 
     start_time = time()
 
