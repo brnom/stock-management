@@ -10,5 +10,3 @@ COPY ./wait-for-it.sh .
 COPY /server .
 
 EXPOSE 5000
-
-CMD ["python3", "sub.py"]
