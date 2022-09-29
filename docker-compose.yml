@@ -1,0 +1,23 @@
+version: '3.5'
+
+services:
+  hivemq:
+    container_name: hivemq
+    image: hivemq/hivemq4:latest
+    ports:
+      - "8080:8080"
+      - "1883:1883"
+  
+  server:
+    container_name: stock-server
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      MQTT_HOST: hivemq
+      MQTT_PORT: 1883
+    volumes:
+      - .:/app
+    depends_on:
+      - hivemq
+    command: ['./wait-for-it.sh', 'hivemq:1883', '--timeout=60', '--', 'python', 'sub.py']
