@@ -65,7 +65,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <!-- <li><a href="#usage">Usage</a></li> -->
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
@@ -96,7 +96,7 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-You need to have docker installed. For more info, check [this](https://docs.docker.com/engine/install/) link.
+Make sure you have [docker](https://docs.docker.com/engine/install/) and [docker-compose](https://docs.docker.com/compose/) installed.
 
 ### Installation
 
@@ -111,11 +111,11 @@ You need to have docker installed. For more info, check [this](https://docs.dock
 
 <!-- USAGE EXAMPLES -->
 
-## Usage
+<!-- ## Usage
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+_For more examples, please refer to the [Documentation](https://example.com)_ -->
 
 <!-- CONTACT -->
 

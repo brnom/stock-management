@@ -1,8 +1,18 @@
 import random
 
-from settings import STORE_MAX_STOCK, TOPIC_STORE_REQUEST
-from commons.client import MqttClient
-from commons.utils import get_stock_level_color
+from settings import (
+  STORE_MAX_STOCK,
+  TOPIC_STORE_REQUEST,
+)
+from models.topic import (
+  TopicManager,
+)
+from commons.client import (
+  MqttClient,
+)
+from commons.utils import (
+  get_stock_level_color,
+)
 
 
 class Store():
@@ -42,13 +52,15 @@ class Store():
 
 
 class StoreManager():
-  def __init__(self, mqtt_client: MqttClient):
+  def __init__(self, mqtt_client: MqttClient, topic_manager: TopicManager):
     self.stores: dict[(str, Store)] = {}
 
     # create ramdom stores from 10 to 20
     for i in range(random.randint(10, 20)):
       name = f'store-{str(i)}'
       self.stores[name] = Store(name, mqtt_client)
+
+    self.topic_manager = topic_manager
 
     # logs
     print(f'Created {self.count()} stores')

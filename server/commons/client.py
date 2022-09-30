@@ -10,19 +10,21 @@ from settings import (
   TOPIC_DISTCENTER_REQUEST,
   TOPIC_DISTCENTER_ADD,
 )
+from models.topic import TopicManager
 import commons.utils as utils
 
 
 class MqttClient(object):
   """ Represents a MQTT Client connection handler class"""
 
-  def __init__(self, client_id=None, host=HOST, port=PORT, timeout=60):
+  def __init__(self, client_id=None, topic_manager: TopicManager = None):
     """The class initializer"""
 
     self._mqtt_client = mqtt.Client(client_id)
-    self.host = host
-    self.port = port
-    self.timeout = timeout
+    self.host = HOST
+    self.port = PORT
+    self.timeout = 60
+    self.topic_manager = topic_manager
 
     self.subscription_topics = [
       (TOPIC_STORE_REQUEST, 0),
@@ -58,6 +60,8 @@ class MqttClient(object):
 
     decoded_msg = utils.decode(msg.payload)
 
+    self.topic_manager.publish_msg(msg.topic, decoded_msg)    
+
     if msg.topic == TOPIC_STORE_REQUEST:
       print('TOPIC_STORE_REQUEST', decoded_msg)
 
@@ -70,6 +74,8 @@ class MqttClient(object):
     elif msg.topic == TOPIC_DISTCENTER_ADD:
       print('TOPIC_DISTCENTER_ADD', decoded_msg)
 
+    added_msg = self.topic_manager.get_next_msg(msg.topic)
+    print('debug added_msg', added_msg)
 
   def stop(self):
     """Stops the mqtt connection loop"""
